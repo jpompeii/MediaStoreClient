@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./asset-list.component.scss']
 })
 export class AssetListComponent implements OnInit {
-
+  message: String;
   constructor() { }
 
   ngOnInit() {
+    this.message = 'Hello John';
   }
 
 }

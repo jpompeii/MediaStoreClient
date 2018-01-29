@@ -12,4 +12,7 @@ export class SidenavComponent implements OnInit {
   ngOnInit() {
   }
 
+  allAssets(): void {
+    this.message = 'Here are all the assets';
+  }
 }

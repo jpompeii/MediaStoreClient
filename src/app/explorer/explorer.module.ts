@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { ExplorerAppComponent } from './explorer-app.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { AssetListComponent } from './components/asset-list/asset-list.component';
+import { AssetService } from './services/asset.service';
 
 const routes: Routes = [
   { path: '', component: ExplorerAppComponent,
@@ -26,6 +27,9 @@ const routes: Routes = [
     FlexLayoutModule,
     FormsModule,
     RouterModule.forChild(routes)
+  ],
+  providers: [
+    AssetService
   ],
   declarations: [ExplorerAppComponent, SidenavComponent, AssetListComponent]
 })

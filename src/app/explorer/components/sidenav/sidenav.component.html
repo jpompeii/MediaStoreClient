@@ -1,4 +1,46 @@
-<p>
-  sidenav works!
-</p>
-<router-outlet></router-outlet>
+<mat-sidenav-container class="app-sidenav-container">
+  <mat-sidenav #sidenav class="app-sidenav mat-elevation-z3"
+               [opened]="true"
+               [mode]="'side'" color="default">
+    <!--mat-list>
+      <mat-list-item>All Assets</mat-list-item>
+      <mat-list-item>Categories</mat-list-item>
+      <mat-list-item>Metadata</mat-list-item>
+      <mat-list-item>Folders</mat-list-item>
+      <mat-list-item>Favorites</mat-list-item>
+    </mat-list-->
+
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Categories
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list dense>
+          <mat-list-item (click)="allAssets()">All Assets</mat-list-item>
+          <mat-list-item>Photography</mat-list-item>
+          <mat-list-item>Graphics</mat-list-item>
+          <mat-list-item>Icons</mat-list-item>
+          <mat-list-item>Marketing</mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Folders
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+  </mat-sidenav>
+
+  <div class="app-sidenav-content">
+    <div class="wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</mat-sidenav-container>
+
