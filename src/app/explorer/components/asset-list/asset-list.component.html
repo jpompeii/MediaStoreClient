@@ -1,3 +1,12 @@
-<p>
-  {{message}}
-</p>
+<div fxLayout="row" fxLayoutWrap fxLayoutGap="10px">
+  <div *ngFor="let asset of assets$ | async" >
+    <mat-card ngClass="card-item">
+      <mat-icon ngClass="card-image">photo</mat-icon>
+      <mat-card-content>
+      </mat-card-content>
+      <mat-card-footer>
+          <mat-card-title ngClass="card-item-title">{{asset.Name}}</mat-card-title>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>

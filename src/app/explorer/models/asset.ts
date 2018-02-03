@@ -4,7 +4,7 @@ export class Asset {
   CurrentVersion: number;
   DateCreated: Date;
   LastUpdate: Date;
-  Embedded: any;
+  Embedded?: any;
 
   constructor() {
   }

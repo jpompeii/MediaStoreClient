@@ -10,7 +10,8 @@ export class AssetService {
 
   constructor() {
     this.assets = [
-      {id: '123', name: 'sample.jpg }
+      {Id: '123', Name: 'sample.jpg', CurrentVersion: 1, DateCreated: new Date(2018, 1, 1), LastUpdate: new Date(2018, 1, 1)  },
+      {Id: '456', Name: 'mypicture.jpg', CurrentVersion: 2, DateCreated: new Date(2018, 1, 2), LastUpdate: new Date(2018, 1, 2)  }
     ];
   }
 

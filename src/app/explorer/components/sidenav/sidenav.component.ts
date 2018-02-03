@@ -13,6 +13,5 @@ export class SidenavComponent implements OnInit {
   }
 
   allAssets(): void {
-    this.message = 'Here are all the assets';
   }
 }

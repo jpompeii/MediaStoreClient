@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Asset } from '../../models/asset';
+import { Observable } from 'rxjs/Observable';
+import { AssetService } from '../../services/asset.service';
 
 @Component({
   selector: 'app-asset-list',
@@ -6,11 +9,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./asset-list.component.scss']
 })
 export class AssetListComponent implements OnInit {
-  message: String;
-  constructor() { }
+  assets$: Observable<Asset[]>;
+  constructor(private assetService: AssetService) { }
 
   ngOnInit() {
-    this.message = 'Hello John';
+    this.assets$ = this.assetService.getAllAssets();
   }
 
+  cardClick(assetId: string): void {
+  }
 }
