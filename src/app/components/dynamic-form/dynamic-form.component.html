@@ -1,0 +1,8 @@
+<form [formGroup]="_form">
+    <div
+      *ngFor="let field of _formConfiguration"
+      appDynamicField
+      [config]="field"
+      [group]="_form">
+    </div>
+</form>
