@@ -1,8 +1,12 @@
+<h3>{{ _formConfiguration.title }} </h3>
 <form [formGroup]="_form">
-    <div
-      *ngFor="let field of _formConfiguration"
+  <ng-container *ngFor="let section of _sortSections(_formConfiguration)">
+      <h4 *ngIf="section?.title">{{ section.title }}</h4>
+      <div *ngFor="let field of section.fields"
       appDynamicField
       [config]="field"
-      [group]="_form">
+      [group]="_form.get(section.id)">
     </div>
+  </ng-container>
+ <div>ISVALID: {{ _form.valid }}</div>
 </form>
