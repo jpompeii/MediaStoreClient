@@ -12,7 +12,7 @@ import { DynamicFormModule } from './components/dynamic-form/dynamic-form.module
 
 const routes: Routes = [
   { path: 'explore', loadChildren: './explorer/explorer.module#ExplorerModule' },
-  { path: 'builder', component: DynamicFormComponent },
+  { path: 'form-builder', component: DynamicFormComponent },
   { path: '**', redirectTo: 'explore' }
 ];
 
