@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidatorFn } from '@angular/forms';
+import { MatDialog, MatSlideToggleChange } from '@angular/material';
 
 
 export interface Field {
@@ -13,6 +14,7 @@ export interface Section  {
   id: string;
   title?: string;
   standalone?: boolean;
+  editing?: boolean;
   fields: (TextField | DateField)[];
 }
 
@@ -36,13 +38,13 @@ export interface DynamicFormConfig {
   templateUrl: './dynamic-form.component.html',
   styleUrls: ['./dynamic-form.component.scss']
 })
-export class FormBuilderComponent implements OnInit {
+export class DynamicFormComponent implements OnInit {
 
   _form: FormGroup;
 
   _formConfiguration: DynamicFormConfig = {
     title: 'Test Form',
-    sectionOrder: ['last', 'first', 'second' ],
+    sectionOrder: ['first', 'second', 'last' ],
     sections: [
       {
         id: 'first',
@@ -97,10 +99,51 @@ export class FormBuilderComponent implements OnInit {
     ]
   };
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit() {
     this._form = this.buildForm();
+  }
+
+  _sortSections(config: DynamicFormConfig): Section[] {
+    return config.sectionOrder.map(sectionId => {
+      return config.sections.find(section => section.id === sectionId);
+    });
+  }
+
+  _sectionUp(sectionId: string) {
+    this.moveSection(sectionId, -1);
+  }
+
+  _sectionDown(sectionId: string) {
+    this.moveSection(sectionId, 1);
+  }
+  private moveSection(sectionId: string, direction: -1 | 1) {
+    const sectionOrder = this._formConfiguration.sectionOrder;
+    const index = sectionOrder.findIndex(section => section === sectionId);
+
+    if (direction === -1 && index > 0 || direction === 1 && index < sectionOrder.length - 1) {
+      const currentValue = sectionOrder[index + direction];
+      sectionOrder[index + direction] = sectionId;
+      sectionOrder[index] = currentValue;
+    }
+  }
+
+  _toggleEdit(sectionId: string) {
+    const section = this._formConfiguration.sections
+      .find(s => s.id === sectionId);
+
+    if (section) {
+      section.editing = !section.editing;
+    }
+  }
+
+  _toggleEditMode(matSlideToggleChange: MatSlideToggleChange) {
+    if (!matSlideToggleChange.checked) {
+      this._formConfiguration.sections.forEach(s => s.editing = false);
+    }
   }
 
   private buildForm() {
@@ -120,12 +163,6 @@ export class FormBuilderComponent implements OnInit {
       group.addControl(field.name, this.fb.control(field.value, this.generateValidators(field)));
     });
     return group;
-  }
-
-  _sortSections(config: DynamicFormConfig): Section[] {
-    return config.sectionOrder.map(sectionId => {
-      return config.sections.find(section => section.id === sectionId);
-    });
   }
 
   private generateValidators(field: Field): ValidatorFn[] {

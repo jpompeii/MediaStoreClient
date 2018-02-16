@@ -14,9 +14,22 @@ const components = {
   selector: '[appDynamicField]',
 })
 export class DynamicFieldDirective implements OnInit {
-  @Input() config: Field;
+  @Input()
+  config: Field;
 
-  @Input() group: FormGroup;
+  @Input()
+  group: FormGroup;
+
+  private _editing: boolean;
+
+  @Input()
+  set editing(val: boolean) {
+    this._editing = val;
+    if (this.componentInstance) {
+      this.componentInstance.instance.editing = this._editing;
+      this.componentInstance.changeDetectorRef.detectChanges();
+    }
+  }
 
   private componentInstance: ComponentRef<any>;
 
@@ -32,5 +45,6 @@ export class DynamicFieldDirective implements OnInit {
     this.componentInstance = this.container.createComponent(factory);
     this.componentInstance.instance.config = this.config;
     this.componentInstance.instance.group = this.group;
+    this.componentInstance.instance.editing = this._editing;
   }
 }

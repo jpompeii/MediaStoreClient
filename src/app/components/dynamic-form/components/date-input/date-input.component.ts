@@ -15,6 +15,7 @@ import { DateField } from '../../dynamic-form.component';
 export class DateInputComponent {
   config: DateField;
   group: FormGroup;
+  editing = false;
 
   constructor() {
 

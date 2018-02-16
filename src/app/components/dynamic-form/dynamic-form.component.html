@@ -1,12 +1,45 @@
-<h3>{{ _formConfiguration.title }} </h3>
-<form [formGroup]="_form">
-  <ng-container *ngFor="let section of _sortSections(_formConfiguration)">
-      <h4 *ngIf="section?.title">{{ section.title }}</h4>
-      <div *ngFor="let field of section.fields"
-      appDynamicField
-      [config]="field"
-      [group]="_form.get(section.id)">
+<mat-card>
+  <mat-card-title>
+    <mat-toolbar>
+      {{ _formConfiguration.title }}
+      <div fxFlex></div>
+      <mat-slide-toggle #edit="matSlideToggle" (change)="_toggleEditMode($event)" checked="true">Edit</mat-slide-toggle>
+    </mat-toolbar>
+  </mat-card-title>
+  <div class="content">
+    <form [formGroup]="_form">
+      <div class="section" *ngFor="let section of _sortSections(_formConfiguration)">
+        <h4 *ngIf="section?.title">{{ section.title }}</h4>
+        <div *ngIf="edit.checked" class="edit-controls">
+          <button mat-icon-button (click)="_sectionUp(section.id)" matTooltip="Move Up">
+            <mat-icon>keyboard_arrow_up</mat-icon>
+          </button>
+          <button mat-icon-button (click)="_sectionDown(section.id)" matTooltip="Move Down">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+          <button *ngIf="!section?.editing" mat-icon-button (click)="_toggleEdit(section.id)" matTooltip="Edit">
+            <mat-icon>mode_edit</mat-icon>
+          </button>
+          <button *ngIf="section?.editing" mat-icon-button (click)="_toggleEdit(section.id)" matTooltip="Close">
+              <mat-icon>close</mat-icon>
+          </button>
+        </div>
+        <ng-container *ngFor="let field of section.fields">
+          <div [ngClass]="{'section-edit': section?.editing}">
+            <div appDynamicField [editing]="section?.editing" [config]="field" [group]="_form.get(section.id)">
+            </div>
+          </div>
+        </ng-container>
+        <mat-divider></mat-divider>
+      </div>
+      <div class="form-debug">IsValid: {{ _form.valid }}</div>
+    </form>
+  </div>
+  <div *ngIf="edit.checked" fxLayout>
+    <mat-divider></mat-divider>
+    <div fxFlex fxLayoutAlign="space-around" class="dynamic-from__edit-button-container">
+      <button mat-button color="accent" type="button">Add Field</button>
+      <button mat-button color="accent" type="button">Add Section</button>
     </div>
-  </ng-container>
- <div>ISVALID: {{ _form.valid }}</div>
-</form>
+  </div>
+</mat-card>

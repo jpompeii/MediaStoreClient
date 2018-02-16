@@ -5,20 +5,19 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormInputComponent } from './components/text-input/text-input.component';
 import { DateInputComponent } from './components/date-input/date-input.component';
 import { DynamicFieldDirective } from './directives/dynamic-field.directive';
-import { FormBuilderComponent } from './dynamic-form.component';
-import { MaterialModule } from '../../shared/material.module';
-
+import { DynamicFormComponent } from './dynamic-form.component';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
     DateInputComponent,
     DynamicFieldDirective,
-    FormBuilderComponent,
+    DynamicFormComponent,
     FormInputComponent,
   ],
   imports: [
     CommonModule,
-    MaterialModule,
+    SharedModule,
     ReactiveFormsModule,
   ],
   exports: [],

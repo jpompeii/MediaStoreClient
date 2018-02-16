@@ -1,0 +1,28 @@
+mat-card {
+  padding: 0;
+}
+.content {
+  padding: 0 24px 24px 24px;
+}
+
+.section {
+  position: relative;
+}
+
+.dynamic-from__edit-button-container {
+  padding: 14px;
+}
+
+.edit-controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.form-debug {
+  padding: 20px;
+}
+.section-edit {
+  border: 3px dashed aqua;
+  padding: 8px;
+}
